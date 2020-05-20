@@ -305,6 +305,14 @@ describe('Wish route', () => {
     }
   })
 
+  it('should return a date from today', () => {
+    var todayDate = wishRouter.today()
+
+    expect(todayDate.getDay()).toBe(new Date().getDay())
+    expect(todayDate.getMonth()).toBe(new Date().getMonth())
+    expect(todayDate.getYear()).toBe(new Date().getYear())
+  })
+
   it('should return a date range that includes current year if current date is between Feb and Dec, 2019', () => {
     const dateRange = wishRouter.getDefaultDateRange(
       new Date('2019-05-03T12:34:56Z')
