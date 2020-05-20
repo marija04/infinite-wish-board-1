@@ -1,6 +1,10 @@
 import Wish from './'
 import React from 'react'
 import { shallow } from 'enzyme'
+import Rocket from '../../assets/images/icn_To_Go_Rocket_130x130.png'
+import Alien from '../../assets/images/icn_To_Meet_Alien_White_Inside_130x130.png'
+import Astronaut from '../../assets/images/icn_To_Be_Astronaut_130x130.png'
+import Telescope from '../../assets/images/icn_To_See_Telescope_White_Inside_130x130.png'
 
 describe('Wish tests', () => {
   const wish = {
@@ -90,3 +94,58 @@ describe('handle wish click', () => {
     expect(historyMock.push.mock.calls[0]).toEqual([('/wish-summary/5d0528c11170183ea576e3da')]);
   })
 });
+
+
+
+describe('Getting image for wish type', () => {
+  const wish = {
+    child: {
+      name: 'Jerel Weber',
+      age: 5,
+      hometown: 'North Robertside',
+      illness: 'SMTP'
+    },
+    sponsor: {
+      links: []
+    },
+    _id: '5d0528c11170183ea576e3da',
+    type: 'go',
+    details: 'overriding calculating Shirt',
+    __v: 0
+  }
+
+  it('should return rocket image for type go', () => {
+    wish.type = "go"
+    const historyMock = { push: jest.fn() }
+    const wrapper = shallow(<Wish history={historyMock} wish={wish} />)
+    expect(wrapper.find('img').prop("src")).toEqual(Rocket)
+  })
+
+  it('should return alien image for type meet', () => {
+    wish.type = "meet"
+    const historyMock = { push: jest.fn() }
+    const wrapper = shallow(<Wish history={historyMock} wish={wish} />)
+    expect(wrapper.find('img').prop("src")).toEqual(Alien)
+  })
+
+  it('should return astronaut image for type be', () => {
+    wish.type = "be"
+    const historyMock = { push: jest.fn() }
+    const wrapper = shallow(<Wish history={historyMock} wish={wish} />)
+    expect(wrapper.find('img').prop("src")).toEqual(Astronaut)
+  })
+
+  it('should return telescope image for type have', () => {
+    wish.type = "have"
+    const historyMock = { push: jest.fn() }
+    const wrapper = shallow(<Wish history={historyMock} wish={wish} />)
+    expect(wrapper.find('img').prop("src")).toEqual(Telescope)
+  })
+
+  it('should not return image if no type', () => {
+    wish.type = ""
+    const historyMock = { push: jest.fn() }
+    const wrapper = shallow(<Wish history={historyMock} wish={wish} />)
+    expect(wrapper.find('img').prop("src")).toEqual("")
+  })
+})
